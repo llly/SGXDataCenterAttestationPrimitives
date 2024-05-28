@@ -21,9 +21,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: install libboost
-      run: sudo apt-get install libboost-dev libboost-system-dev libboost-thread-dev
+      run: sudo apt-get install libcurl4-openssl-dev libboost-dev libboost-system-dev libboost-thread-dev
     - name: init submodule
-      run: git submodule update --init
+      run: git submodule update --init --recursive
     - name: download prebuilt
       run: QuoteGeneration/download_prebuilt.sh
     - name: download SGXSDK
@@ -33,4 +33,4 @@ jobs:
     - name: install SGXSDK
       run: ./sgx_linux_x64_sdk.bin <<< "yes"
     - name: build
-      run: source ./sgxsdk/environment ; make all
+      run: source ./sgxsdk/environment; make all
