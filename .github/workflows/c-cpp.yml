@@ -20,6 +20,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: install libboost
+      run: sudo apt-get install libboost1.74-dev
     - name: init submodule
       run: git submodule update --init
     - name: download prebuilt
