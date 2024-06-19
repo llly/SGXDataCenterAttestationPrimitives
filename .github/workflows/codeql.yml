@@ -46,6 +46,7 @@ jobs:
         include:
         - language: c-cpp
           build-mode: manual
+          sarif-name: cpp
         # CodeQL supports the following values keywords for 'language': 'c-cpp', 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python', 'ruby', 'swift'
         # Use `c-cpp` to analyze code written in C, C++ or both
         # Use 'java-kotlin' to analyze code written in Java, Kotlin or both
@@ -104,10 +105,10 @@ jobs:
           -QuoteVerification/QuoteVerificationService
           -QuoteVerification/QVL
           -QuoteVerification/sgxssl
-        input: sarif-results/${{ (matrix.language == 'c-cpp' && cpp) || ${{matrix.language}} }}.sarif
-        output: sarif-results/${{ (matrix.language == 'c-cpp' && cpp) || ${{matrix.language}} }}.sarif
+        input: sarif-results/${{ matrix.sarif-name }}.sarif
+        output: sarif-results/${{ matrix.sarif-name }}.sarif
 
     - name: Upload SARIF
       uses: github/codeql-action/upload-sarif@v3
       with:
-        sarif_file: sarif-results/${{ (matrix.language == 'c-cpp' && cpp) || ${{matrix.language}} }}.sarif
+        sarif_file: sarif-results/${{ matrix.sarif-name }}.sarif
