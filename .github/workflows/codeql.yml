@@ -95,6 +95,10 @@ jobs:
         category: "/language:${{matrix.language}}"
         output: sarif-results
         upload: failure-only
+    
+    - name: check
+    - run: |
+        ls sarif-results
 
     - name: Filter SARIF
       uses: advanced-security/filter-sarif@v1
@@ -104,10 +108,10 @@ jobs:
           -QuoteVerification/QuoteVerificationService
           -QuoteVerification/QVL
           -QuoteVerification/sgxssl
-        input: sarif-results/${{matrix.language}}.sarif
-        output: sarif-results/${{matrix.language}}.sarif
+        input: sarif-results/c.sarif
+        output: sarif-results/c.sarif
 
     - name: Upload SARIF
       uses: github/codeql-action/upload-sarif@v3
       with:
-        sarif_file: sarif-results/${{matrix.language}}.sarif
+        sarif_file: sarif-results/c.sarif
