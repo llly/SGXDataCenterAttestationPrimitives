@@ -93,4 +93,27 @@ jobs:
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"
-        ignore_paths: external,QuoteVerification/sgxssl,QuoteVerification/QVL,QuoteVerification/QuoteVerificationService
+        output: sarif-results
+        upload: failure-only
+
+    - name: filter-sarif
+      uses: advanced-security/filter-sarif@v1
+      with:
+        patterns: |
+          -external
+          -QuoteVerification/QuoteVerificationService
+          -QuoteVerification/QVL
+          -QuoteVerification/sgxssl
+        input: sarif-results
+        output: sarif-results
+
+    - name: Upload SARIF
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: sarif-results
+
+    - name: Upload loc as a Build Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: sarif-results
+        path: sarif-results
