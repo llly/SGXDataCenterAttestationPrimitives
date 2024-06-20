@@ -94,10 +94,10 @@ jobs:
       uses: advanced-security/filter-sarif@v1
       with:
         patterns: |
-          -external
-          -QuoteVerification/QuoteVerificationService
-          -QuoteVerification/QVL
-          -QuoteVerification/sgxssl
+          -external/**/*
+          -QuoteVerification/QuoteVerificationService/**/*
+          -QuoteVerification/QVL/**/*
+          -QuoteVerification/sgxssl/**/*
         input: sarif-results/${{ matrix.sarif-name }}.sarif
         output: sarif-results/${{ matrix.sarif-name }}.sarif
 
